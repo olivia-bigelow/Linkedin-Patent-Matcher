@@ -212,13 +212,16 @@ inventorDF = pd.read_table("/uufs/chpc.utah.edu/common/home/fengj-group1/PatentG
 #inventorDF = pd.read_table("M:/divin/ReposHard/vscode repos/revelio test datasets/inventor.txt").apply(lambda col: lowercase_strings(col))
 
 #load in linkedin users
-usersDF = pd.read_csv('/uufs/chpc.utah.edu/common/home/fengj-group1/Revelio/Individual User/user_0000_part_00.csv').apply(lambda col: lowercase_strings(col))
+userDFs = []
 #usersDF = pd.read_csv("M:/divin/ReposHard/vscode repos/revelio test datasets/user.txt").apply(lambda col: lowercase_strings(col))
-for i in range(1, 247):
+for i in range(0, 247):
     strnum = '0' + str(i)
     while len(strnum) < 4:
         strnum = '0' + strnum
-    usersDF = pd.concat([usersDF, pd.read_csv('/uufs/chpc.utah.edu/common/home/fengj-group1/Revelio/Individual User/user_' + strnum +'_part_00.csv')], ignore_index=True)
+
+    userDFs.append(pd.read_csv('/uufs/chpc.utah.edu/common/home/fengj-group1/Revelio/Individual User/user_' + strnum +'_part_00.csv').apply(lambda col: lowercase_strings(col)))
+usersDF = pd.concat(userDFs, axis=0, ignore_index=True)    
+userDFs = []
 
 #load in linkedin positions
 posDfs = []
